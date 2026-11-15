@@ -1,0 +1,60 @@
+name: AxiomZero Frontier CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  python-cpp20-formal-suite:
+    name: C++20 Kernels + PyTorch GQA/SAE + CDCL Proofs (Py3.13)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify C++20 Compiler Availability
+        run: g++ --version
+
+      - name: Install uv & Python 3.13
+        uses: astral-sh/setup-uv@v4
+        with:
+          python-version: "3.13"
+
+      - name: Sync Dependencies (CPU PyTorch + Dev Tools)
+        run: uv sync --all-extras
+
+      - name: Lint & Formatting Check (Ruff)
+        run: |
+          uv run ruff check src tests
+          uv run ruff format --check src tests
+
+      - name: Strict Static Type Verification (Mypy)
+        run: uv run mypy src
+
+      - name: Formal Property & Coverage Suite (>=95%)
+        run: uv run pytest --cov=axiom_zero --cov-report=term-missing --cov-fail-under=95
+
+  workbench-ui-build:
+    name: TypeScript + Vite Frontier Workbench Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ui
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Install & Compile TypeScript + Production Bundle
+        run: |
+          npm ci
+          npm run build
