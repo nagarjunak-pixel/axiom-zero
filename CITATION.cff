@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use or reference axiom-zero in research or enterprise architecture, please cite it as below."
+type: software
+title: "AxiomZero: Verified Frontier Transformer Runtime, Native C++20 Speculative Kernel, Top-K SAE Steering & 1-UIP CDCL Proof Engine"
+version: 1.0.0
+date-released: "2026-11-16"
+license: Apache-2.0
+url: "https://nagarjunak-pixel.github.io/projects.html"
+repository-code: "https://github.com/nagarjunak-pixel/axiom-zero"
+authors:
+  - family-names: "Kamireddy"
+    given-names: "Nagarjuna Reddy"
+    orcid: ""
+    affiliation: "Suryagentic AI"

@@ -1,10 +1,11 @@
 # AxiomZero (`v1.0.0`)
 
 [![CI](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml/badge.svg)](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml)
+[![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-1f6feb.svg)](https://github.com/nagarjunak-pixel/axiom-zero/releases/tag/v1.0.0)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![C++20](https://img.shields.io/badge/kernels-C%2B%2B20%20-O3-00599C.svg)](csrc/axiom_kernels.cpp)
 [![Coverage](https://img.shields.io/badge/coverage-98.0%25-brightgreen.svg)](tests/)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-emerald.svg)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-10b981.svg)](LICENSE)
 
 **Verified Frontier Transformer Runtime, Mechanistic Sparse Autoencoder (`Top-K SAE`) Steering & `1-UIP` CDCL Proof-Carrying Inference Engine**
 
@@ -13,6 +14,12 @@
 1. **Systems & Lossless Inference Core (`csrc/axiom_kernels.cpp`, `src/axiom_zero/transformer/`)**: A from-scratch PyTorch Pre-Norm **`RoPE + Grouped-Query Attention (GQA) + SwiGLU + RMSNorm`** Decoder Transformer paired with a Copy-on-Write (`CoW`) **Paged KV-Cache** and a native **C++20 (`-O3 -std=c++20`) Leviathan-Kalman-Matias speculative verification kernel**.
 2. **Mechanistic Interpretability & Activation Steering Core (`src/axiom_zero/interp/sae.py`)**: An overcomplete **Top-$K$ Sparse Autoencoder (`SAE`)** with exact Riemannian unit-norm decoder column projection ($\|d_i\|_2 = 1$) trained on real Transformer residual-stream activations, enabling live **causal circuit steering** ($h' = h + \alpha d_{f^*}$).
 3. **Formal Proof-Carrying Reasoning & Live LLM CEGIS Core (`src/axiom_zero/verifier/`, `src/axiom_zero/mcts/`, `src/axiom_zero/real_llm_eval.py`)**: A from-scratch **`1-UIP` Conflict-Driven Clause Learning (`CDCL`) SAT Solver** verified by an **independent Reverse Unit Propagation (`RUP`) proof-checking kernel**, an exact `fractions.Fraction` **`QF_LRA` conservation solver**, **AlphaZero `PUCT` Proof-Guided MCTS**, and a live **Counterexample-Guided Inductive Synthesis (`CEGIS`)** loop evaluated against local `qwen3.5:4b` via Ollama.
+
+---
+
+## Live Interactive Mechanistic Alignment & Formal Verification Workbench
+
+![AxiomZero Live Workbench — C++20 Lossless Speculative Kernel, Top-K SAE Causal Steering & 1-UIP CDCL RUP Verifier](docs/assets/workbench-preview.png)
 
 ---
 
