@@ -1,4 +1,4 @@
-name: AxiomZero Frontier CI
+name: AxiomZero CI
 
 on:
   push:
@@ -35,11 +35,11 @@ jobs:
       - name: Strict Static Type Verification (Mypy)
         run: uv run mypy src
 
-      - name: Formal Property & Coverage Suite (>=95%)
+      - name: Property-Based & Coverage Suite (>=95%)
         run: uv run pytest --cov=axiom_zero --cov-report=term-missing --cov-fail-under=95
 
   workbench-ui-build:
-    name: TypeScript + Vite Frontier Workbench Build
+    name: TypeScript + Vite Workbench Build
     runs-on: ubuntu-latest
     defaults:
       run:

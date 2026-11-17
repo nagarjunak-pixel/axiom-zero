@@ -1,6 +1,6 @@
 # AxiomZero (`v1.0.0`)
 
-[![CI](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml/badge.svg)](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml)
+[![AxiomZero CI](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml/badge.svg)](https://github.com/nagarjunak-pixel/axiom-zero/actions/workflows/ci.yml)
 [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-1f6feb.svg)](https://github.com/nagarjunak-pixel/axiom-zero/releases/tag/v1.0.0)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![C++20](https://img.shields.io/badge/kernels-C%2B%2B20%20-O3-00599C.svg)](csrc/axiom_kernels.cpp)
@@ -17,7 +17,7 @@
 
 ---
 
-## Live Interactive Mechanistic Alignment & Formal Verification Workbench
+## Interactive Speculative Decoding, Top-K SAE & CDCL Workbench
 
 ![AxiomZero Live Workbench — C++20 Lossless Speculative Kernel, Top-K SAE Causal Steering & 1-UIP CDCL RUP Verifier](docs/assets/workbench-preview.png)
 
@@ -27,7 +27,7 @@
 
 ```mermaid
 flowchart TD
-    subgraph S1["1. Frontier Inference & C++20 Kernel Layer"]
+    subgraph S1["1. Speculative Inference & C++20 Kernel Layer"]
         DRAFT["Compact GQA Draft LM\n(1-Layer, RoPE + SwiGLU)"]
         TARGET["Target GQA Transformer LM\n(6-Layer, 4Q / 2KV Heads)"]
         CPP["Native C++20 Kernel (csrc/axiom_kernels.cpp)\nFused Softmax + Speculative Rejection + Paged KV"]
@@ -83,7 +83,7 @@ Every metric below is produced directly by executing `uv run axiom demo` and `uv
 | **Decision-Position Regime Firing Selectivity** | **`100.0%` in-regime firing** vs. **`0.000` out-of-regime mean** across all 4 regimes |
 | **Causal Steering on Adversarial `COVERT_POLICY_BYPASS` Prefix** | $\alpha=0$: **`0.00%`** $\rightarrow$ $\alpha=25$: **`27.82%`** $\rightarrow$ $\alpha=45$: **`99.96%` `P(QUARANTINE_TX)`** |
 
-### 3. Zero-Mock Real Local `qwen3.5:4b` (`Ollama`) Formal CEGIS Benchmark (`benchmarks/real_qwen_eval.json`)
+### 3. Local `qwen3.5:4b` (`Ollama`) CEGIS Repair Benchmark (`benchmarks/real_qwen_eval.json`)
 
 Evaluated across **10 adversarial multi-constraint settlement & logic tasks** (`Modus Tollens` reverse deduction, biconditional parity locks, prompt-injection override traps, and tight non-round 3-tranche conservation laws):
 
@@ -125,11 +125,11 @@ uv run axiom steer-sae --alpha 45 --regime 3
 # 3) Prove PHP(3,2) enclave exclusion via 1-UIP CDCL + RUP checker & run PUCT Proof-Guided MCTS
 uv run axiom prove
 
-# 4) Run live CEGIS formal verification against local Ollama (or replay signed benchmark if offline)
+# 4) Run live CEGIS constraint verification against local Ollama (or replay signed benchmark if offline)
 uv run axiom eval-ollama --model qwen3.5:4b
 ```
 
-### 3. Launch the Interactive TypeScript/React Frontier Workbench
+### 3. Launch the Interactive TypeScript/React Workbench
 
 ```bash
 cd ui && npm ci && npm run build && cd ..
@@ -153,11 +153,11 @@ axiom-zero/
 │   ├── interp/sae.py                  # Overcomplete Top-K SAE (||d_i||_2=1) & residual-stream steering hooks
 │   ├── verifier/cdcl_smt.py           # 1-UIP CDCL SAT solver, standalone RUP checker, MUC & Fraction QF_LRA
 │   ├── mcts/proof_mcts.py             # AlphaZero PUCT MCTS with real-time CDCL/QF_LRA subtree pruning
-│   ├── real_llm_eval.py               # Live Ollama (qwen3.5:4b) CEGIS formal verification benchmark
+│   ├── real_llm_eval.py               # Live Ollama (qwen3.5:4b) CEGIS constraint verification benchmark
 │   ├── api/app.py                     # FastAPI server for live SAE alpha steering, speculative & CDCL RPCs
 │   └── cli.py                         # Rich CLI (`axiom`)
 ├── benchmarks/real_qwen_eval.json     # Real recorded qwen3.5:4b Pass@1 vs. CEGIS trace
-├── ui/                                # TypeScript + React + Vite Frontier Research Workbench
+├── ui/                                # TypeScript + React + Vite Research Workbench
 ├── docs/
 │   ├── mathematical-proofs.md         # Formal proofs for Theorems 1–4 linked to Hypothesis tests
 │   └── adr/                           # Architecture Decision Records (0001–0004)
@@ -170,7 +170,7 @@ axiom-zero/
 - [ADR-0001: C++20 Lossless Speculative Verification & CoW Paged KV](docs/adr/0001-cpp20-lossless-speculative-and-paged-kv.md)
 - [ADR-0002: Overcomplete Top-K SAE & Unit-Norm Causal Steering](docs/adr/0002-topk-sae-unit-norm-causal-steering.md)
 - [ADR-0003: 1-UIP CDCL & Independent RUP Proof Kernel](docs/adr/0003-1uip-cdcl-and-independent-rup-kernel.md)
-- [ADR-0004: Zero-Mock CEGIS Loop Over Live Local LLMs](docs/adr/0004-cegis-real-llm-formal-gate.md)
+- [ADR-0004: CEGIS Loop Over Local LLMs](docs/adr/0004-cegis-real-llm-formal-gate.md)
 
 ## License
 
@@ -178,9 +178,9 @@ Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
 
-## Author & Enterprise AI Architecture Hub
+## Author & Links
 Built by **[Nagarjuna Reddy Kamireddy](https://nagarjunak-pixel.github.io/)** (*Nagarjuna Kamireddy / Nagarjuna K*) — Lead AI Architect, GenAI & Agentic AI Lead, and Corporate AI Trainer (20+ years across Enterprise Data, SAP HANA & Production AI; AWS Certified Solutions Architect – Professional & NVIDIA-Certified Professional: Agentic AI).
 
-- **Official Portfolio & Architecture Hub:** [https://nagarjunak-pixel.github.io/](https://nagarjunak-pixel.github.io/)
-- **Enterprise Case Studies & Technical Articles:** [Case Studies](https://nagarjunak-pixel.github.io/case-studies.html) · [Architecture Articles](https://nagarjunak-pixel.github.io/articles.html) · [10-Mandate Role Fit](https://nagarjunak-pixel.github.io/roles.html)
+- **Portfolio:** [https://nagarjunak-pixel.github.io/](https://nagarjunak-pixel.github.io/)
+- **Case Studies & Technical Articles:** [Case Studies](https://nagarjunak-pixel.github.io/case-studies.html) · [Architecture Articles](https://nagarjunak-pixel.github.io/articles.html) · [10-Mandate Role Fit](https://nagarjunak-pixel.github.io/roles.html)
 - **Master CV & AI Search Index:** [Master CV](https://nagarjunak-pixel.github.io/resume.html) · [`llms-full.txt`](https://nagarjunak-pixel.github.io/llms-full.txt) · [LinkedIn](https://www.linkedin.com/in/nagarjuna-kamireddy)

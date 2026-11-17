@@ -1,4 +1,4 @@
-# ADR 0004: Zero-Mock CEGIS Loop Over Live Local LLMs (`Ollama` + `QF_LRA`)
+# ADR 0004: CEGIS Loop Over Local LLMs (`Ollama` + `QF_LRA`)
 
 - **Status**: Accepted
 - **Context**: Raw autoregressive LLMs routinely fail multi-hop Boolean implications (`Modus Tollens`, biconditionals, adversarial override traps) and tight exact-sum multi-tranche conservation constraints on `Pass@1`.
