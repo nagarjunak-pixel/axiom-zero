@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "axiom-zero"
 version = "1.0.0"
-description = "Verified Frontier Transformer Runtime: Native C++20 Lossless Speculative/KV Engine, Top-K Sparse Autoencoder Circuit Steering, & 1-UIP CDCL Formal Proof Verifier"
+description = "Small GQA transformer with speculative decoding (C++ helper), Top-K SAE steering, and a CDCL SAT solver with RUP checks — educational reference implementation"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.12"

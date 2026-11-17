@@ -7,13 +7,13 @@
 [![Coverage](https://img.shields.io/badge/coverage-98.0%25-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-10b981.svg)](LICENSE)
 
-**Verified Frontier Transformer Runtime, Mechanistic Sparse Autoencoder (`Top-K SAE`) Steering & `1-UIP` CDCL Proof-Carrying Inference Engine**
+**Small GQA transformer with speculative decoding (C++ helper), Top-K SAE steering, and a CDCL SAT solver with RUP checks — educational reference implementation**
 
-`axiom-zero` unifies three foundational pillars of modern frontier AI research and systems engineering into a single, end-to-end verifiable Python + C++20 + PyTorch + TypeScript runtime—with **zero mocked benchmarks**:
+`axiom-zero` is a compact, from-scratch Python/PyTorch codebase (with a small C++20 helper and a TypeScript UI) that reimplements three research techniques at toy scale so they can be read, run on a CPU, and tested end to end:
 
-1. **Systems & Lossless Inference Core (`csrc/axiom_kernels.cpp`, `src/axiom_zero/transformer/`)**: A from-scratch PyTorch Pre-Norm **`RoPE + Grouped-Query Attention (GQA) + SwiGLU + RMSNorm`** Decoder Transformer paired with a Copy-on-Write (`CoW`) **Paged KV-Cache** and a native **C++20 (`-O3 -std=c++20`) Leviathan-Kalman-Matias speculative verification kernel**.
-2. **Mechanistic Interpretability & Activation Steering Core (`src/axiom_zero/interp/sae.py`)**: An overcomplete **Top-$K$ Sparse Autoencoder (`SAE`)** with exact Riemannian unit-norm decoder column projection ($\|d_i\|_2 = 1$) trained on real Transformer residual-stream activations, enabling live **causal circuit steering** ($h' = h + \alpha d_{f^*}$).
-3. **Formal Proof-Carrying Reasoning & Live LLM CEGIS Core (`src/axiom_zero/verifier/`, `src/axiom_zero/mcts/`, `src/axiom_zero/real_llm_eval.py`)**: A from-scratch **`1-UIP` Conflict-Driven Clause Learning (`CDCL`) SAT Solver** verified by an **independent Reverse Unit Propagation (`RUP`) proof-checking kernel**, an exact `fractions.Fraction` **`QF_LRA` conservation solver**, **AlphaZero `PUCT` Proof-Guided MCTS**, and a live **Counterexample-Guided Inductive Synthesis (`CEGIS`)** loop evaluated against local `qwen3.5:4b` via Ollama.
+1. **Speculative decoding (`csrc/axiom_kernels.cpp`, `src/axiom_zero/transformer/`)**: a small Pre-Norm decoder transformer (`RoPE + Grouped-Query Attention + SwiGLU + RMSNorm`) trained on a synthetic symbolic-sequence dataset, a copy-on-write paged KV-cache manager, and speculative decoding following Leviathan et al. (draft proposals verified by the target model with rejection sampling), with the softmax/rejection step implemented in a ~180-line C++20 file loaded via `ctypes` (NumPy fallback).
+2. **Sparse-autoencoder steering (`src/axiom_zero/interp/sae.py`)**: an overcomplete Top-$K$ sparse autoencoder with unit-norm decoder columns ($\|d_i\|_2 = 1$), trained on residual-stream activations of the small transformer above, plus a hook that adds a scaled feature direction to the residual stream ($h' = h + \alpha d_{f^*}$).
+3. **SAT checking and a verify-and-repair loop (`src/axiom_zero/verifier/`, `src/axiom_zero/mcts/`, `src/axiom_zero/real_llm_eval.py`)**: a from-scratch `1-UIP` CDCL SAT solver whose learned clauses are re-checked by a separate Reverse Unit Propagation (`RUP`) checker, an exact `fractions.Fraction` checker for linear bound/sum constraints, a `PUCT`-style MCTS that prunes branches using these checks, and a counterexample-guided repair loop (CEGIS-style) run against a local `qwen3.5:4b` model via Ollama on 10 hand-written tasks.
 
 ---
 
@@ -91,6 +91,14 @@ Evaluated across **10 adversarial multi-constraint settlement & logic tasks** (`
 | :--- | :---: | :---: | :---: |
 | **Raw `qwen3.5:4b` (`Pass@1`, Unguided JSON)** | `1 / 10` (`10.0%`) | `90.0%` (`9/10` violated CNF or sum caps) | `~1,390 ms` |
 | **AxiomZero CEGIS (`CDCL 1-UIP + QF_LRA`, $\le 3$ turns)** | **`9 / 10` (`90.0%` — `9x` lift)** | **`0.0%`** (`1/10` safely `BLOCKED` by gate) | `3,444.2 ms` |
+
+## Scope & Limitations
+
+- **Scale:** roughly 3.2k lines of Python in `src/` (including blank lines and docstrings), a ~180-line C++20 helper (`csrc/axiom_kernels.cpp`), and a small React/TypeScript UI. It is an educational reference implementation, not a production inference runtime or SAT/SMT solver.
+- **Toy models and synthetic data:** the target (6-layer, `d_model=96`) and draft (1-layer, `d_model=48`) transformers and the SAE are trained on CPU on a synthetic 4-regime symbolic-sequence dataset generated in `gqa_model.py`; the speculative-decoding and SAE numbers above describe these toy models and do not transfer to real LLMs.
+- **No GPU work:** all timings are CPU-only; the C++ helper implements softmax, the speculative accept/reject step and a reference paged-attention loop, not optimized GPU kernels.
+- **Small, self-constructed LLM benchmark:** the CEGIS results come from 10 hand-written policy/arithmetic tasks evaluated once against a local 4B model (`qwen3.5:4b`, Ollama); CI replays the recorded trace in `benchmarks/real_qwen_eval.json` rather than calling a model. The verifier only checks propositional CNF rules and linear bound/sum constraints, far simpler than general SMT.
+- **Simplified relative to the techniques it follows:** the MCTS, CDCL and SAE components are compact single-process implementations intended for reading and experimentation; they are not hardened, benchmarked against established solvers/libraries, or tuned for scale.
 
 ---
 
