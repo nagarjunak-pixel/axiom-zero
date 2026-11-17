@@ -1,14 +1,17 @@
 cff-version: 1.2.0
-message: "If you use or reference axiom-zero in research or enterprise architecture, please cite it as below."
-type: software
-title: "AxiomZero: Verified Frontier Transformer Runtime, Native C++20 Speculative Kernel, Top-K SAE Steering & 1-UIP CDCL Proof Engine"
-version: 1.0.0
-date-released: "2026-11-16"
-license: Apache-2.0
-url: "https://nagarjunak-pixel.github.io/projects.html"
-repository-code: "https://github.com/nagarjunak-pixel/axiom-zero"
+message: "If you use or reference this software architecture, please cite it as below."
 authors:
   - family-names: "Kamireddy"
     given-names: "Nagarjuna Reddy"
-    orcid: ""
-    affiliation: "Suryagentic AI"
+    alias: "Nagarjuna Kamireddy"
+    website: "https://nagarjunak-pixel.github.io/"
+title: "AxiomZero — GQA Transformer with C++20 Speculative Decoding, Top-K SAE Steering & CDCL SAT RUP Checker"
+version: 1.0.0
+date-released: 2026-11-18
+url: "https://nagarjunak-pixel.github.io/github-projects-atlas.html"
+repository-code: "https://github.com/nagarjunak-pixel/axiom-zero"
+references:
+  - type: web
+    title: "Nagarjuna Kamireddy — Official LinkedIn Profile & Autonomous SAP Newsletter"
+    url: "https://www.linkedin.com/in/nagarjuna-kamireddy/"
+license: MIT
